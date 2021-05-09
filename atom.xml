@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Android Learning Notes</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-05-09T11:30:23.195Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>Suny Tan</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前言</title>
+    <link href="http://example.com/2021/05/09/%E5%89%8D%E8%A8%80md/"/>
+    <id>http://example.com/2021/05/09/%E5%89%8D%E8%A8%80md/</id>
+    <published>2021-05-09T07:13:13.624Z</published>
+    <updated>2021-05-09T11:30:23.195Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;做安卓开发也好几年了，一直也没习惯去记录下来自己的一些学习与理解，导致很多东西总是学了忘，忘了学。建此博客只为了记录下来一些日常的心得以及分析理解，方便自己的加深记忆，也方便同行一起学习，避免遇到重复的坑。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+</feed>
