@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Palatino:300,300italic,400,400italic,700,700italic|Comic Sans MS:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
@@ -123,12 +123,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">1</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">2</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -184,6 +184,110 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://sunytan.github.io/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpeg">
+      <meta itemprop="name" content="Suny Tan">
+      <meta itemprop="description" content="一些Android学习的日常笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Android Learning Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">CoordinatorLayout+AppBarLayout+RecyclerView滑动吸顶原理解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-13 23:25:15" itemprop="dateCreated datePublished" datetime="2021-05-13T23:25:15+08:00">2021-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-19 00:24:22" itemprop="dateModified" datetime="2021-05-19T00:24:22+08:00">2021-05-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-UI/" itemprop="url" rel="index"><span itemprop="name">Android UI</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>​    本文主要介绍使用<code>AppBarLayout+RecyclerView</code>滑动吸顶布局，其滑动原理，以及如何禁止滑动，包括禁止滑动<code>AppBarLayout</code>本身滑动，以及禁止滑动<code>RecyclerView</code>而让<code>AppBarLayout</code>滑动的操作。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -341,9 +445,15 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
 </div>
@@ -352,7 +462,10 @@
         <a href="https://github.com/sunytan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sunytan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://blog.csdn.net/tanyang93" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;tanyang93" rel="noopener" target="_blank"><i class="crosshairs fa-fw"></i>CSDN</a>
+        <a href="https://blog.csdn.net/tanyang93" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;tanyang93" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/3a4d1b63bc40" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;3a4d1b63bc40" rel="noopener" target="_blank"><i class="fa fa-address-book fa-fw"></i>简书</a>
       </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
@@ -400,7 +513,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">0k</span>
+    <span title="站点总字数">13k</span>
 </div>
 
 

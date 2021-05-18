@@ -6,7 +6,7 @@
   <link href="http://sunytan.github.io/atom.xml" rel="self"/>
   
   <link href="http://sunytan.github.io/"/>
-  <updated>2021-05-09T11:30:23.195Z</updated>
+  <updated>2021-05-18T16:24:22.072Z</updated>
   <id>http://sunytan.github.io/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CoordinatorLayout+AppBarLayout+RecyclerView滑动吸顶原理解析</title>
+    <link href="http://sunytan.github.io/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"/>
+    <id>http://sunytan.github.io/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</id>
+    <published>2021-05-13T15:25:15.000Z</published>
+    <updated>2021-05-18T16:24:22.072Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;​    本文主要介绍使用&lt;code&gt;AppBarLayout+RecyclerView&lt;/code&gt;滑动吸顶布局，其滑动原理，以及如何禁止滑动，包括禁止滑动&lt;code&gt;AppBarLayout&lt;/code&gt;本身滑动，以及禁止滑动&lt;code&gt;RecyclerView&lt;/code&gt;而让&lt;code&gt;AppBarLayout&lt;/code&gt;滑动的操作。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Android UI" scheme="http://sunytan.github.io/categories/Android-UI/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>前言</title>
