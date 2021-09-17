@@ -18,30 +18,32 @@
     var CONFIG = {"hostname":"sunytan.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="一些Android学习的日常笔记">
-<meta property="og:type" content="website">
+  <meta name="description" content="Mac编译查看Android 源码记录  ## 一、环境准备  最常见的坑就是Mac系统大小写不敏感。打开Mac磁盘工具，添加一个卷宗，格式选择区分大小写，大小选项可以不同填 ![磁盘添加大小写敏感卷宗](Mac编译Android 源码记录&#x2F;磁盘添加大小写敏感卷宗.png) 二、获取Android源代码鉴于国内都被墙的情况下，没法直接从google官方获取，通常都会走国内的几大开源镜像站。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Android Learning Notes">
-<meta property="og:url" content="http://sunytan.github.io/index.html">
+<meta property="og:url" content="http://sunytan.github.io/2021/09/17/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Android Learning Notes">
-<meta property="og:description" content="一些Android学习的日常笔记">
+<meta property="og:description" content="Mac编译查看Android 源码记录  ## 一、环境准备  最常见的坑就是Mac系统大小写不敏感。打开Mac磁盘工具，添加一个卷宗，格式选择区分大小写，大小选项可以不同填 ![磁盘添加大小写敏感卷宗](Mac编译Android 源码记录&#x2F;磁盘添加大小写敏感卷宗.png) 二、获取Android源代码鉴于国内都被墙的情况下，没法直接从google官方获取，通常都会走国内的几大开源镜像站。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-17T11:32:39.891Z">
+<meta property="article:modified_time" content="2021-09-17T11:32:39.891Z">
 <meta property="article:author" content="Suny Tan">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://sunytan.github.io/">
+<link rel="canonical" href="http://sunytan.github.io/2021/09/17/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Android Learning Notes</title>
+  <title> | Android Learning Notes</title>
   
 
 
@@ -182,97 +184,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sunytan.github.io/2021/09/17/%E5%89%8D%E8%A8%80md/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpeg">
-      <meta itemprop="name" content="Suny Tan">
-      <meta itemprop="description" content="一些Android学习的日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Android Learning Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/17/%E5%89%8D%E8%A8%80md/" class="post-title-link" itemprop="url">前言</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-17 19:32:39" itemprop="dateCreated datePublished" datetime="2021-09-17T19:32:39+08:00">2021-09-17</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/09/17/%E5%89%8D%E8%A8%80md/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/09/17/%E5%89%8D%E8%A8%80md/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>103</span>
-            </span>
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>做安卓开发也好几年了，一直也没习惯去记录下来自己的一些学习与理解，导致很多东西总是学了忘，忘了学。建此博客只为了记录下来一些日常的心得以及分析理解，方便自己的加深记忆，也方便同行一起学习，避免遇到重复的坑。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/17/%E5%89%8D%E8%A8%80md/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -288,10 +203,9 @@
       <meta itemprop="name" content="Android Learning Notes">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
+        <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/09/17/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -304,6 +218,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
   <span class="post-meta-item">
     
@@ -335,7 +256,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1>
+        <h1>
   <center>Mac编译查看Android 源码记录</center>
 </h1>
 ## 一、环境准备
@@ -384,7 +305,6 @@
 
 <p>然后open an exist project 打开android.ipr。</p>
 
-      
     </div>
 
     
@@ -392,125 +312,73 @@
     
 
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://sunytan.github.io/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpeg">
-      <meta itemprop="name" content="Suny Tan">
-      <meta itemprop="description" content="一些Android学习的日常笔记">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Android Learning Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">CoordinatorLayout+AppBarLayout+RecyclerView滑动吸顶原理解析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-05-13 23:25:15" itemprop="dateCreated datePublished" datetime="2021-05-13T23:25:15+08:00">2021-05-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-17 19:32:39" itemprop="dateModified" datetime="2021-09-17T19:32:39+08:00">2021-09-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android-UI/" itemprop="url" rel="index"><span itemprop="name">Android UI</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
     
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>13k</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>​    本文主要介绍使用<code>AppBarLayout+RecyclerView</code>滑动吸顶布局，其滑动原理，以及如何禁止滑动，包括禁止滑动<code>AppBarLayout</code>本身滑动，以及禁止滑动<code>RecyclerView</code>而让<code>AppBarLayout</code>滑动的操作。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Suny Tan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://sunytan.github.io/2021/09/17/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/" title="">http://sunytan.github.io/2021/09/17/Mac编译Android 源码记录/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
     </div>
+  </div>
 
-    
-    
-    
 
-    
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" rel="prev" title="CoordinatorLayout+AppBarLayout+RecyclerView滑动吸顶原理解析">
+      <i class="fa fa-chevron-left"></i> CoordinatorLayout+AppBarLayout+RecyclerView滑动吸顶原理解析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/17/%E5%89%8D%E8%A8%80md/" rel="next" title="前言">
+      前言 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -557,6 +425,9 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text">
+  Mac编译查看Android 源码记录
+</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%8E%B7%E5%8F%96Android%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-text">二、获取Android源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%BC%96%E8%AF%91idegen"><span class="nav-text">三、编译idegen</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AF%BC%E5%85%A5Android-Studio%E6%9F%A5%E7%9C%8B"><span class="nav-text">四、导入Android Studio查看</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
