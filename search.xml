@@ -1,59 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>/2022/01/03/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<h1>
-  <center>Mac编译查看Android 源码记录</center>
-</h1>
-## 一、环境准备
-
-<p>最常见的坑就是Mac系统大小写不敏感。打开Mac磁盘工具，添加一个卷宗，格式选择区分大小写，大小选项可以不同填</p>
-<p>![磁盘添加大小写敏感卷宗](Mac编译Android 源码记录/磁盘添加大小写敏感卷宗.png)</p>
-<h2 id="二、获取Android源代码"><a href="#二、获取Android源代码" class="headerlink" title="二、获取Android源代码"></a>二、获取Android源代码</h2><p>鉴于国内都被墙的情况下，没法直接从google官方获取，通常都会走国内的几大开源镜像站。</p>
-<p>我就是从清华的镜像站获取的，具体步骤我就不重复写了，请参考<a href="https://mirrors.tuna.tsinghua.edu.cn/">清华大学开源软件镜像站</a></p>
-<p>镜像站上的源代码细分没有到最新，对于最新的源代码的分支细分，请参考<a href="https://source.android.com/setup/start/build-numbers#source-code-tags-and-builds">Android源代码细分版本</a></p>
-<h2 id="三、编译idegen"><a href="#三、编译idegen" class="headerlink" title="三、编译idegen"></a>三、编译idegen</h2><p><strong>使用命令：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source build/envsetup.sh</span><br><span class="line">make idegen</span><br></pre></td></tr></table></figure>
-
-<p>然后会出现如下错误：</p>
-<p>![android源码编译没有支持的sdk](Mac编译Android 源码记录/android源码编译没有支持的sdk.png)</p>
-<p>原因是当前下载的Xcode版本所支持的Mac SDK，不在源码要求的范围内。</p>
-<p>参考这个:<a href="https://stackoverflow.com/questions/50760701/could-not-find-a-supported-mac-sdk-10-10-10-11-10-12-10-13">https://stackoverflow.com/questions/50760701/could-not-find-a-supported-mac-sdk-10-10-10-11-10-12-10-13</a></p>
-<p>可以从 <a href="https://github.com/phracker/MacOSX-SDKs">https://github.com/phracker/MacOSX-SDKs</a> 这个网址上下载报错提示所需的SDK</p>
-<p>然后把下载的SDK解压到<a href="">/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs</a>这个目录下。</p>
-<p>如下所示</p>
-<p>![xcode sdk版本](Mac编译Android 源码记录/xcode sdk版本.png)</p>
-<p>解决上述错误后，又出现如下错误：</p>
-<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">============================================</span><br><span class="line"><span class="meta">[100%</span><span class="bash"> 11/11] out/soong/.bootstrap/bin/soong_build out/soong/build.ninja</span></span><br><span class="line">FAILED: out/soong/build.ninja</span><br><span class="line">out/soong/.bootstrap/bin/soong_build -t -l out/.module_paths/Android.bp.list -b out/soong -n out -d out/soong/build.ninja.d -globFile out/soong/.bootstrap/build-globs.ninja -o out/soong/build.ninja Android.bp</span><br><span class="line">error: external/v8/Android.bp:181:16: module &quot;v8_bytecode_builtins_list_generator&quot; variant &quot;darwin_x86_64&quot;: host_ldlibs: Host library `-lrt` not available</span><br><span class="line">error: external/v8/Android.bp:209:16: module &quot;v8_torque&quot; variant &quot;darwin_x86_64&quot;: host_ldlibs: Host library `-lrt` not available</span><br><span class="line">10:48:14 soong bootstrap failed with: exit status 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">### failed to build some targets (01:18 (mm:ss)) ####</span></span></span><br></pre></td></tr></table></figure>
-
-<p>问题原因：</p>
-<p><a href="https://stackoverflow.com/questions/47703239/ld-library-not-found-for-lrt">https://stackoverflow.com/questions/47703239/ld-library-not-found-for-lrt</a></p>
-<p>这是因为在新的glibc中用不到-lrt，所以把对应报错的Android.bp中-lrt移除掉就可以了。</p>
-<p>然后出现 <strong>too many open files</strong>的错误</p>
-<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">FAILED: out/soong/build.ninja</span><br><span class="line">out/soong/.bootstrap/bin/soong_build -t -l out/.module_paths/Android.bp.list -b out/soong -n out -d out/soong/build.ninja.d -globFile out/soong/.bootstrap/build-globs.ninja -o out/soong/build.ninja Android.bp</span><br><span class="line">error: external/avb/Android.bp:100:1: module &quot;aftl_proto&quot; variant &quot;darwin_x86_64_PY2&quot;: glob: open /Volumes/Code/aosp/external/avb/proto: too many open files</span><br><span class="line">error: external/avb/Android.bp:100:1: module &quot;aftl_proto&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: external/python/uritemplates/uritemplate/Android.bp:14:1: module &quot;py-uritemplate&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: cts/tests/framework/base/windowmanager/translucentapp/Android.bp:15:1: module &quot;cts-wm-translucent-app&quot;: glob: open /Volumes/Code/aosp/cts/tests/framework/base/windowmanager/translucentapp/src: too many open files</span><br><span class="line">error: cts/tests/framework/base/windowmanager/Android.bp:15:1: module &quot;cts-wm-components&quot;: glob: open /Volumes/Code/aosp/cts/tests/framework/base/windowmanager: too many open files</span><br><span class="line">error: cts/tests/framework/base/windowmanager/app_base/Android.bp:15:1: module &quot;cts-wm-components-base&quot;: glob: open /Volumes/Code/aosp/cts/tests/framework/base/windowmanager/app_base: too many open files</span><br><span class="line">error: external/python/funcsigs/funcsigs/Android.bp:15:1: module &quot;py-funcsigs&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: frameworks/base/services/wifi/Android.bp:1:1: module &quot;services.wifi-sources&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/hamcrest/hamcrest-core/Android.bp:17:1: module &quot;hamcrest&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: cts/libs/testserver/Android.bp:15:1: module &quot;ctstestserver&quot; variant &quot;android_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: frameworks/base/services/voiceinteraction/Android.bp:1:1: module &quot;services.voiceinteraction-sources&quot;: glob: fcntl: too many open files</span><br><span class="line">error: cts/tests/signature/lib/common/Android.bp:15:1: module &quot;signature-common-javalib&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/jcommander/Android.bp:21:1: module &quot;jcommander&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/python/asn1crypto/asn1crypto/Android.bp:14:1: module &quot;py-asn1crypto&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: platform_testing/libraries/annotations/Android.bp:17:1: module &quot;platform-test-annotations&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/snakeyaml/Android.bp:46:1: module &quot;snakeyaml&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: frameworks/base/core/res/Android.bp:57:1: module &quot;robolectric_framework_raw_res_files&quot;: glob: fcntl: too many open files</span><br><span class="line">11:35:40 soong bootstrap failed with: exit status 1</span><br><span class="line">ninja: build stopped: subcommand failed.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">### failed to build some targets (22 seconds) ####</span></span></span><br></pre></td></tr></table></figure>
-
-<p>这是因为打开了太多文件，主要是和系统配置有关。</p>
-<p>可以使用如下命令查看</p>
-<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">launchctl limit</span><br></pre></td></tr></table></figure>
-
-<p>结果如下显示，其中maxfiles就是最大打开文件数限制</p>
-<p>![image-20210916113944468](Mac编译Android 源码记录/file_limit.png)</p>
-<p>临时修改大小限制：</p>
-<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">ulimit -S -n 1024</span><br></pre></td></tr></table></figure>
-
-<p>这样之后，编译idegen总算成功了。</p>
-<h2 id="四、导入Android-Studio查看"><a href="#四、导入Android-Studio查看" class="headerlink" title="四、导入Android Studio查看"></a>四、导入Android Studio查看</h2><p><strong>首先生成AndroidStudio所需要的android.ipr和android.iml</strong></p>
-<p>使用上面idegen编译好的文件，使用如下命令，就可以生成所需的配置文件</p>
-<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">./development/tools/idegen/idegen.sh</span><br></pre></td></tr></table></figure>
-
-<p>因为我们仅仅需要看framework相关源码。所以一些不必要的文件都排除掉，减少androidstuido 导入时长。需要在android.iml文件中加入如下一些代码</p>
-<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/art&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/bionic&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/bootable&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/build&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/cts&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/dalvik&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/developers&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/development&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/device&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/docs&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/external&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/hardware&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/kernel&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/libcore&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/libnativehelper&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/out&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/pdk&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/platform_testing&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/prebuilts&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/sdk&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/system&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/test&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/toolchain&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/tools&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/.repo&quot; /&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后open an exist project 打开android.ipr。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>CoordinatorLayout+AppBarLayout+RecyclerView滑动吸顶原理解析</title>
     <url>/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<p>​    本文主要介绍使用<code>AppBarLayout+RecyclerView</code>滑动吸顶布局，其滑动原理，以及如何禁止滑动，包括禁止滑动<code>AppBarLayout</code>本身滑动，以及禁止滑动<code>RecyclerView</code>而让<code>AppBarLayout</code>滑动的操作。</p>
@@ -137,6 +84,59 @@
       <categories>
         <category>Android UI</category>
       </categories>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2022/01/03/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1>
+  <center>Mac编译查看Android 源码记录</center>
+</h1>
+## 一、环境准备
+
+<p>最常见的坑就是Mac系统大小写不敏感。打开Mac磁盘工具，添加一个卷宗，格式选择区分大小写，大小选项可以不同填</p>
+<p>![磁盘添加大小写敏感卷宗](Mac编译Android 源码记录/磁盘添加大小写敏感卷宗.png)</p>
+<h2 id="二、获取Android源代码"><a href="#二、获取Android源代码" class="headerlink" title="二、获取Android源代码"></a>二、获取Android源代码</h2><p>鉴于国内都被墙的情况下，没法直接从google官方获取，通常都会走国内的几大开源镜像站。</p>
+<p>我就是从清华的镜像站获取的，具体步骤我就不重复写了，请参考<a href="https://mirrors.tuna.tsinghua.edu.cn/">清华大学开源软件镜像站</a></p>
+<p>镜像站上的源代码细分没有到最新，对于最新的源代码的分支细分，请参考<a href="https://source.android.com/setup/start/build-numbers#source-code-tags-and-builds">Android源代码细分版本</a></p>
+<h2 id="三、编译idegen"><a href="#三、编译idegen" class="headerlink" title="三、编译idegen"></a>三、编译idegen</h2><p><strong>使用命令：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source build/envsetup.sh</span><br><span class="line">make idegen</span><br></pre></td></tr></table></figure>
+
+<p>然后会出现如下错误：</p>
+<p>![android源码编译没有支持的sdk](Mac编译Android 源码记录/android源码编译没有支持的sdk.png)</p>
+<p>原因是当前下载的Xcode版本所支持的Mac SDK，不在源码要求的范围内。</p>
+<p>参考这个:<a href="https://stackoverflow.com/questions/50760701/could-not-find-a-supported-mac-sdk-10-10-10-11-10-12-10-13">https://stackoverflow.com/questions/50760701/could-not-find-a-supported-mac-sdk-10-10-10-11-10-12-10-13</a></p>
+<p>可以从 <a href="https://github.com/phracker/MacOSX-SDKs">https://github.com/phracker/MacOSX-SDKs</a> 这个网址上下载报错提示所需的SDK</p>
+<p>然后把下载的SDK解压到<a href="">/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs</a>这个目录下。</p>
+<p>如下所示</p>
+<p>![xcode sdk版本](Mac编译Android 源码记录/xcode sdk版本.png)</p>
+<p>解决上述错误后，又出现如下错误：</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">============================================</span><br><span class="line"><span class="meta">[100%</span><span class="bash"> 11/11] out/soong/.bootstrap/bin/soong_build out/soong/build.ninja</span></span><br><span class="line">FAILED: out/soong/build.ninja</span><br><span class="line">out/soong/.bootstrap/bin/soong_build -t -l out/.module_paths/Android.bp.list -b out/soong -n out -d out/soong/build.ninja.d -globFile out/soong/.bootstrap/build-globs.ninja -o out/soong/build.ninja Android.bp</span><br><span class="line">error: external/v8/Android.bp:181:16: module &quot;v8_bytecode_builtins_list_generator&quot; variant &quot;darwin_x86_64&quot;: host_ldlibs: Host library `-lrt` not available</span><br><span class="line">error: external/v8/Android.bp:209:16: module &quot;v8_torque&quot; variant &quot;darwin_x86_64&quot;: host_ldlibs: Host library `-lrt` not available</span><br><span class="line">10:48:14 soong bootstrap failed with: exit status 1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">### failed to build some targets (01:18 (mm:ss)) ####</span></span></span><br></pre></td></tr></table></figure>
+
+<p>问题原因：</p>
+<p><a href="https://stackoverflow.com/questions/47703239/ld-library-not-found-for-lrt">https://stackoverflow.com/questions/47703239/ld-library-not-found-for-lrt</a></p>
+<p>这是因为在新的glibc中用不到-lrt，所以把对应报错的Android.bp中-lrt移除掉就可以了。</p>
+<p>然后出现 <strong>too many open files</strong>的错误</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">FAILED: out/soong/build.ninja</span><br><span class="line">out/soong/.bootstrap/bin/soong_build -t -l out/.module_paths/Android.bp.list -b out/soong -n out -d out/soong/build.ninja.d -globFile out/soong/.bootstrap/build-globs.ninja -o out/soong/build.ninja Android.bp</span><br><span class="line">error: external/avb/Android.bp:100:1: module &quot;aftl_proto&quot; variant &quot;darwin_x86_64_PY2&quot;: glob: open /Volumes/Code/aosp/external/avb/proto: too many open files</span><br><span class="line">error: external/avb/Android.bp:100:1: module &quot;aftl_proto&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: external/python/uritemplates/uritemplate/Android.bp:14:1: module &quot;py-uritemplate&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: cts/tests/framework/base/windowmanager/translucentapp/Android.bp:15:1: module &quot;cts-wm-translucent-app&quot;: glob: open /Volumes/Code/aosp/cts/tests/framework/base/windowmanager/translucentapp/src: too many open files</span><br><span class="line">error: cts/tests/framework/base/windowmanager/Android.bp:15:1: module &quot;cts-wm-components&quot;: glob: open /Volumes/Code/aosp/cts/tests/framework/base/windowmanager: too many open files</span><br><span class="line">error: cts/tests/framework/base/windowmanager/app_base/Android.bp:15:1: module &quot;cts-wm-components-base&quot;: glob: open /Volumes/Code/aosp/cts/tests/framework/base/windowmanager/app_base: too many open files</span><br><span class="line">error: external/python/funcsigs/funcsigs/Android.bp:15:1: module &quot;py-funcsigs&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: frameworks/base/services/wifi/Android.bp:1:1: module &quot;services.wifi-sources&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/hamcrest/hamcrest-core/Android.bp:17:1: module &quot;hamcrest&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: cts/libs/testserver/Android.bp:15:1: module &quot;ctstestserver&quot; variant &quot;android_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: frameworks/base/services/voiceinteraction/Android.bp:1:1: module &quot;services.voiceinteraction-sources&quot;: glob: fcntl: too many open files</span><br><span class="line">error: cts/tests/signature/lib/common/Android.bp:15:1: module &quot;signature-common-javalib&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/jcommander/Android.bp:21:1: module &quot;jcommander&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/python/asn1crypto/asn1crypto/Android.bp:14:1: module &quot;py-asn1crypto&quot; variant &quot;darwin_x86_64_PY2&quot;: doesn&#x27;t have any source files!</span><br><span class="line">error: platform_testing/libraries/annotations/Android.bp:17:1: module &quot;platform-test-annotations&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: external/snakeyaml/Android.bp:46:1: module &quot;snakeyaml&quot; variant &quot;darwin_common&quot;: glob: fcntl: too many open files</span><br><span class="line">error: frameworks/base/core/res/Android.bp:57:1: module &quot;robolectric_framework_raw_res_files&quot;: glob: fcntl: too many open files</span><br><span class="line">11:35:40 soong bootstrap failed with: exit status 1</span><br><span class="line">ninja: build stopped: subcommand failed.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">### failed to build some targets (22 seconds) ####</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这是因为打开了太多文件，主要是和系统配置有关。</p>
+<p>可以使用如下命令查看</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">launchctl limit</span><br></pre></td></tr></table></figure>
+
+<p>结果如下显示，其中maxfiles就是最大打开文件数限制</p>
+<p>![image-20210916113944468](Mac编译Android 源码记录/file_limit.png)</p>
+<p>临时修改大小限制：</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">ulimit -S -n 1024</span><br></pre></td></tr></table></figure>
+
+<p>这样之后，编译idegen总算成功了。</p>
+<h2 id="四、导入Android-Studio查看"><a href="#四、导入Android-Studio查看" class="headerlink" title="四、导入Android Studio查看"></a>四、导入Android Studio查看</h2><p><strong>首先生成AndroidStudio所需要的android.ipr和android.iml</strong></p>
+<p>使用上面idegen编译好的文件，使用如下命令，就可以生成所需的配置文件</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">./development/tools/idegen/idegen.sh</span><br></pre></td></tr></table></figure>
+
+<p>因为我们仅仅需要看framework相关源码。所以一些不必要的文件都排除掉，减少androidstuido 导入时长。需要在android.iml文件中加入如下一些代码</p>
+<figure class="highlight console"><table><tr><td class="code"><pre><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/art&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/bionic&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/bootable&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/build&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/cts&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/dalvik&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/developers&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/development&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/device&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/docs&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/external&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/hardware&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/kernel&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/libcore&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/libnativehelper&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/out&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/pdk&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/platform_testing&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/prebuilts&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/sdk&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/system&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/test&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/toolchain&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/tools&quot; /&gt;</span><br><span class="line">&lt;excludeFolder url=&quot;file://$MODULE_DIR$/.repo&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后open an exist project 打开android.ipr。</p>
+]]></content>
   </entry>
   <entry>
     <title>前言</title>
