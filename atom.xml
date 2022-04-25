@@ -6,7 +6,7 @@
   <link href="http://sunytan.github.io/atom.xml" rel="self"/>
   
   <link href="http://sunytan.github.io/"/>
-  <updated>2022-04-11T13:42:04.243Z</updated>
+  <updated>2022-04-25T13:15:00.495Z</updated>
   <id>http://sunytan.github.io/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>前言</title>
-    <link href="http://sunytan.github.io/2022/04/11/%E5%89%8D%E8%A8%80md/"/>
-    <id>http://sunytan.github.io/2022/04/11/%E5%89%8D%E8%A8%80md/</id>
-    <published>2022-04-11T13:42:04.243Z</published>
-    <updated>2022-04-11T13:42:04.243Z</updated>
+    <link href="http://sunytan.github.io/2022/04/25/%E5%89%8D%E8%A8%80md/"/>
+    <id>http://sunytan.github.io/2022/04/25/%E5%89%8D%E8%A8%80md/</id>
+    <published>2022-04-25T13:15:00.495Z</published>
+    <updated>2022-04-25T13:15:00.495Z</updated>
     
     
     <summary type="html">&lt;p&gt;做安卓开发也好几年了，一直也没习惯去记录下来自己的一些学习与理解，导致很多东西总是学了忘，忘了学。建此博客只为了记录下来一些日常的心得以及分析理解，方便自己的加深记忆，也方便同行一起学习，避免遇到重复的坑。&lt;/p&gt;</summary>
@@ -33,10 +33,10 @@
   
   <entry>
     <title></title>
-    <link href="http://sunytan.github.io/2022/04/11/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/"/>
-    <id>http://sunytan.github.io/2022/04/11/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/</id>
-    <published>2022-04-11T13:42:04.228Z</published>
-    <updated>2022-04-11T13:42:04.243Z</updated>
+    <link href="http://sunytan.github.io/2022/04/25/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/"/>
+    <id>http://sunytan.github.io/2022/04/25/Mac%E7%BC%96%E8%AF%91Android%20%E6%BA%90%E7%A0%81%E8%AE%B0%E5%BD%95/</id>
+    <published>2022-04-25T13:15:00.468Z</published>
+    <updated>2022-04-25T13:15:00.469Z</updated>
     
     
       
@@ -60,7 +60,7 @@
     <link href="http://sunytan.github.io/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"/>
     <id>http://sunytan.github.io/2021/05/13/CoordinatorLayout+AppBarLayout+RecyclerView%E6%BB%91%E5%8A%A8%E5%90%B8%E9%A1%B6%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</id>
     <published>2021-05-13T15:25:15.000Z</published>
-    <updated>2022-04-11T13:42:04.228Z</updated>
+    <updated>2022-04-25T13:15:00.452Z</updated>
     
     
     <summary type="html">&lt;p&gt;​    本文主要介绍使用&lt;code&gt;AppBarLayout+RecyclerView&lt;/code&gt;滑动吸顶布局，其滑动原理，以及如何禁止滑动，包括禁止滑动&lt;code&gt;AppBarLayout&lt;/code&gt;本身滑动，以及禁止滑动&lt;code&gt;RecyclerView&lt;/code&gt;而让&lt;code&gt;AppBarLayout&lt;/code&gt;滑动的操作。&lt;/p&gt;</summary>
